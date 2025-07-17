@@ -1,7 +1,12 @@
-#!/usr/bin/env -S node --experimental-strip-types --disable-warning=ExperimentalWarning
+#!/usr/bin/env -S node
 
 import { writeFile } from 'node:fs/promises'
-import { name, version } from '../src/version.ts'
+import { readFileSync } from 'node:fs'
+
+const packageJson = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf-8'))
+
+const name = packageJson.name
+const version = packageJson.version
 
 // To address https://github.com/platformatic/kafka/issues/91
 await writeFile(

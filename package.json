@@ -16,17 +16,12 @@
     "url": "https://github.com/platformatic/kafka/issues"
   },
   "private": false,
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
   "type": "module",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.base.json",
-    "postbuild": "node --experimental-strip-types scripts/postbuild.ts",
+    "postbuild": "node scripts/postbuild.js",
     "lint": "eslint --cache",
     "typecheck": "tsc -p . --noEmit",
     "format": "prettier -w benchmarks playground src test",
@@ -39,7 +34,8 @@
     "postpublish": "git push origin && git push origin -f --tags",
     "generate:apis": "node --experimental-strip-types scripts/generate-apis.ts",
     "generate:errors": "node --experimental-strip-types scripts/generate-errors.ts",
-    "create:api": "node --experimental-strip-types scripts/create-api.ts"
+    "create:api": "node --experimental-strip-types scripts/create-api.ts",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "ajv": "^8.17.1",
