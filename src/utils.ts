@@ -1,4 +1,5 @@
 import { Ajv2020 } from 'ajv/dist/2020.js'
+// @ts-ignore
 import debug from 'debug'
 import { inspect } from 'node:util'
 import { type DynamicBuffer } from './protocol/dynamic-buffer.ts'
