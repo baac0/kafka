@@ -16,11 +16,6 @@
     "url": "https://github.com/platformatic/kafka/issues"
   },
   "private": false,
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
   "type": "module",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
