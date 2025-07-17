@@ -36,7 +36,8 @@
     "postpublish": "git push origin && git push origin -f --tags",
     "generate:apis": "node --experimental-strip-types scripts/generate-apis.ts",
     "generate:errors": "node --experimental-strip-types scripts/generate-errors.ts",
-    "create:api": "node --experimental-strip-types scripts/create-api.ts"
+    "create:api": "node --experimental-strip-types scripts/create-api.ts",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "ajv": "^8.17.1",
