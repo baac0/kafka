@@ -38,7 +38,7 @@ export interface FetchResponsePartition {
   logStartOffset: bigint
   abortedTransactions: FetchResponsePartitionAbortedTransaction[]
   preferredReadReplica: number
-  records?: RecordsBatch
+  records?: RecordsBatch[]
 }
 
 export interface FetchResponseTopic {
@@ -75,7 +75,7 @@ export type FetchResponse = {
     partitions => INT32
   rack_id => COMPACT_STRING
 */
-export function createRequest (
+export function createRequest(
   maxWaitMs: number,
   minBytes: number,
   maxBytes: number,
@@ -136,7 +136,7 @@ export function createRequest (
         preferred_read_replica => INT32
         records => COMPACT_RECORDS
 */
-export function parseResponse (
+export function parseResponse(
   _correlationId: number,
   apiKey: number,
   apiVersion: number,
@@ -183,7 +183,11 @@ export function parseResponse (
           if (recordsSize > 1) {
             recordsSize--
 
-            partition.records = readRecordsBatch(Reader.from(r.buffer.subarray(r.position, r.position + recordsSize)))
+            const recordBatchesReader = Reader.from(r.buffer.subarray(r.position, r.position + recordsSize))
+            partition.records = []
+            do {
+              partition.records.push(readRecordsBatch(recordBatchesReader))
+            } while (recordBatchesReader.position < recordsSize)
 
             r.skip(recordsSize)
           }
